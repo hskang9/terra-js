@@ -1,6 +1,6 @@
 {
   "name": "@terra-money/core",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "This package provides Terra Blockchain client side APIs to support building transaction, singing, or querying chain data.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -33,7 +33,11 @@
     "bip32": "^2.0.3",
     "bip39": "^3.0.2",
     "crypto-js": "^3.1.9-1",
+    "prettier": "^1.18.2",
     "secp256k1": "^3.7.1",
+    "tslint": "^5.18.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.5.1"
   }
 }

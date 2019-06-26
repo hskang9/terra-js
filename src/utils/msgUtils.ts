@@ -1,6 +1,5 @@
 import * as SHA256 from 'crypto-js/sha256'
 
-
 export interface Coin {
   denom: string
   amount: string
@@ -8,12 +7,12 @@ export interface Coin {
 
 export interface Fee {
   gas: string
-  amount: Array<Coin>
+  amount: Coin[]
 }
 
 export interface InOut {
   address: string
-  coins: Array<Coin>
+  coins: Coin[]
 }
 
 export interface Signature {
@@ -26,9 +25,7 @@ export interface Signature {
   }
 }
 
-function normalizeDecimal (
-  decimalNumber: string
-): string {
+function normalizeDecimal(decimalNumber: string): string {
   const num = decimalNumber.split('.')
   let result = decimalNumber
 
@@ -45,12 +42,7 @@ function normalizeDecimal (
   return result
 }
 
-export function generateVoteHash (
-  salt: string,
-  price: string,
-  denom: string,
-  voter: string
-): string {
+export function generateVoteHash(salt: string, price: string, denom: string, voter: string): string {
   const proof = `${salt}:${normalizeDecimal(price)}:${denom}:${voter}`
   const hash = SHA256(proof).toString() // hex string
 
@@ -60,19 +52,16 @@ export function generateVoteHash (
 export interface StdTxValue {
   fee: Fee
   memo: string
-  msg: Array<object>
-  signatures: Array<Signature>
+  msg: object[]
+  signatures: Signature[]
 }
+
 export interface StdTx {
   type: string
   value: StdTxValue
 }
 
-export function buildStdTx (
-  msg: Array<object>, 
-  fee: Fee, 
-  memo: string
-): StdTx {
+export function buildStdTx(msg: object[], fee: Fee, memo: string): StdTx {
   return {
     type: 'auth/StdTx',
     value: {
@@ -85,21 +74,16 @@ export function buildStdTx (
 }
 
 interface MsgPricePrevote {
-  type: string,
+  type: string
   value: {
-    hash: string,
-    denom: string,
-    feeder: string,
+    hash: string
+    denom: string
+    feeder: string
     validator: string
   }
 }
 
-export function buildPricePrevoteMsg (
-  hash: string, 
-  denom: string, 
-  feeder: string, 
-  validator: string
-): MsgPricePrevote {
+export function buildPricePrevoteMsg(hash: string, denom: string, feeder: string, validator: string): MsgPricePrevote {
   return {
     type: 'oracle/MsgPricePrevote',
     value: {
@@ -112,21 +96,21 @@ export function buildPricePrevoteMsg (
 }
 
 interface MsgPriceVote {
-  type: string,
+  type: string
   value: {
-    price: string,
-    salt: string,
-    denom: string,
-    feeder: string,
+    price: string
+    salt: string
+    denom: string
+    feeder: string
     validator: string
   }
 }
 
-export function buildPriceVote (
-  price: string, 
-  salt: string, 
-  denom: string, 
-  feeder: string, 
+export function buildPriceVote(
+  price: string,
+  salt: string,
+  denom: string,
+  feeder: string,
   validator: string
 ): MsgPriceVote {
   return {
@@ -141,23 +125,19 @@ export function buildPriceVote (
   }
 }
 interface MsgSend {
-  type: string,
+  type: string
   value: {
-    amount: Array<Coin>,
-    from_address: string,
-    to_address: string,
+    amount: Coin[]
+    from_address: string
+    to_address: string
   }
 }
 
-export function buildSend(
-  amount: Array<Coin>, 
-  fromAddress: string, 
-  toAddress: string
-):MsgSend {
+export function buildSend(amount: Coin[], fromAddress: string, toAddress: string): MsgSend {
   return {
     type: 'pay/MsgSend',
     value: {
-      amount: amount,
+      amount,
       from_address: fromAddress,
       to_address: toAddress
     }
@@ -165,17 +145,14 @@ export function buildSend(
 }
 
 interface MsgMultiSend {
-  type: string,
+  type: string
   value: {
-    inputs: Array<InOut>,
-    outputs: Array<InOut>
+    inputs: InOut[]
+    outputs: InOut[]
   }
 }
 
-export function buildMultiSend(
-  inputs: Array<InOut>, 
-  outputs: Array<InOut>
-): MsgMultiSend {
+export function buildMultiSend(inputs: InOut[], outputs: InOut[]): MsgMultiSend {
   return {
     type: 'pay/MsgMultiSend',
     value: {

@@ -3,7 +3,7 @@ This project provides Javascript & Node.js SDK library for [Core](https://github
 
 ## Send 
 ```
-const menemonic = "bunker grunt glow february coin right thunder special width only achieve reject dice laugh venue chapter quantum feel you dial much trip display more"
+const mnemonic = terra.generateMnemonic()
 const masterKey = await terra.deriveMasterKey(menemonic)
 const keypair = terra.deriveKeypair(masterKey)
 const accAddr = terra.getAccAddress(keypair.publicKey)

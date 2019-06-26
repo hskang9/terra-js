@@ -1,41 +1,46 @@
-
 import {
   KeyPair,
-  convertAccAddressToValAddress, 
+  convertAccAddressToValAddress,
   convertValAddressToAccAddress,
   deriveKeypair,
   deriveMasterKey,
   generateMnemonic,
   getAccAddress,
-  getValAddress} from "./utils/keyUtils"
+  getValAddress
+} from './utils/keyUtils'
 
 import {
-  Coin,Fee,InOut,Signature,StdTx,StdTxValue,
+  Coin,
+  Fee,
+  InOut,
+  Signature,
+  StdTx,
+  StdTxValue,
   buildPricePrevoteMsg,
   buildPriceVote,
   buildSend,
   buildStdTx,
   buildMultiSend,
   generateVoteHash
-} from "./utils/msgUtils"
+} from './utils/msgUtils'
 
-import {
-  SignMetaData,
-  createBroadcastBody,
-  createSignedTx,
-  sign
-} from "./utils/txUtils"
+import { SignMetaData, createBroadcastBody, createSignedTx, sign } from './utils/txUtils'
 
 export {
   KeyPair,
-  convertAccAddressToValAddress, 
+  convertAccAddressToValAddress,
   convertValAddressToAccAddress,
   deriveKeypair,
   deriveMasterKey,
   generateMnemonic,
   getAccAddress,
   getValAddress,
-  Coin,Fee,InOut,Signature,StdTx,StdTxValue,
+  Coin,
+  Fee,
+  InOut,
+  Signature,
+  StdTx,
+  StdTxValue,
   buildPricePrevoteMsg,
   buildPriceVote,
   buildSend,
