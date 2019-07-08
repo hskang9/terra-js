@@ -161,3 +161,23 @@ export function buildMultiSend(inputs: InOut[], outputs: InOut[]): MsgMultiSend 
     }
   }
 }
+
+interface MsgSwap {
+  type: string
+  value: {
+    trader: string
+    offer_coin: Coin
+    ask_denom: string
+  }
+}
+
+export function buildSwap(trader: string, offerCoin: Coin, askDenom: string): MsgSwap {
+  return {
+    type: 'market/MsgSwap',
+    value: {
+      trader,
+      offer_coin: offerCoin,
+      ask_denom: askDenom
+    }
+  }
+}

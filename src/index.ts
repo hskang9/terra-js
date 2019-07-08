@@ -21,6 +21,7 @@ import {
   buildSend,
   buildStdTx,
   buildMultiSend,
+  buildSwap,
   generateVoteHash
 } from './utils/msgUtils'
 
@@ -46,6 +47,7 @@ export {
   buildSend,
   buildStdTx,
   buildMultiSend,
+  buildSwap,
   generateVoteHash,
   SignMetaData,
   createBroadcastBody,

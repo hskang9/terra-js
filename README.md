@@ -42,3 +42,4 @@ console.log(accAddr, broadcastBody)
 * buildPriceVote
 * buildSend
 * buildMultiSend
+* buildSwap
