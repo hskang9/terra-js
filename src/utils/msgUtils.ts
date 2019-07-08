@@ -83,7 +83,7 @@ interface MsgPricePrevote {
   }
 }
 
-export function buildPricePrevoteMsg(hash: string, denom: string, feeder: string, validator: string): MsgPricePrevote {
+export function buildPricePrevote(hash: string, denom: string, feeder: string, validator: string): MsgPricePrevote {
   return {
     type: 'oracle/MsgPricePrevote',
     value: {
