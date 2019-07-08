@@ -38,7 +38,7 @@ console.log(accAddr, broadcastBody)
 ```
 
 ## Building Msgs
-* buildPricePrevoteMsg
+* buildPricePrevote
 * buildPriceVote
 * buildSend
 * buildMultiSend
