@@ -27,12 +27,13 @@ export interface KeyPair {
 export function deriveKeypair(masterKey: bip32.BIP32Interface, account: Number = 0, index: Number = 0): KeyPair {
   const hdPathLuna = `m/44'/330'/${account}'/0/${index}`
   const terraHD = masterKey.derivePath(hdPathLuna)
+  
   const privateKey = terraHD.privateKey
-  const publicKey = secp256k1.publicKeyCreate(privateKey, true)
-
   if (!privateKey) {
     throw 'Failed to derive key pair'
   }
+  
+  const publicKey = secp256k1.publicKeyCreate(privateKey, true)
 
   return {
     privateKey,
