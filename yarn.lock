@@ -116,6 +116,21 @@
     reflect-metadata "^0.1.12"
     tslib "^1.8.1"
 
+"@terra-money/core@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@terra-money/core/-/core-1.0.7.tgz#573bb8b2108a5b5611308b39200c799b3e863980"
+  integrity sha512-jOrPZHu4/LMQtiei6xaqwssgBoKr7tfuPY7TVxq846UTLF7q+L6fnTkGjALVWBHS+lCAj8g8hp0j0fGK0GnKqA==
+  dependencies:
+    "@types/chai" "^4.1.7"
+    "@types/mocha" "^5.2.7"
+    "@types/secp256k1" "^3.5.0"
+    bech32 "^1.1.3"
+    bip32 "^2.0.3"
+    bip39 "^3.0.2"
+    crypto-js "^3.1.9-1"
+    secp256k1 "^3.7.1"
+    ts-node "^8.3.0"
+
 "@types/bech32@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/bech32/-/bech32-1.1.1.tgz#a8574f9519369c91d5e69287551f675621a67f44"
