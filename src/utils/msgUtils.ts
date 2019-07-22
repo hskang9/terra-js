@@ -134,6 +134,12 @@ interface MsgSend {
 }
 
 export function buildSend(amount: Coin[], fromAddress: string, toAddress: string): MsgSend {
+  // Sort coins before building msg
+  amount.sort((a, b) => {
+    if (a.denom < b.denom) return -1
+    return 1
+  })
+
   return {
     type: 'pay/MsgSend',
     value: {
@@ -153,6 +159,21 @@ interface MsgMultiSend {
 }
 
 export function buildMultiSend(inputs: InOut[], outputs: InOut[]): MsgMultiSend {
+  // Sort coins before building msg
+  inputs.forEach(o => {
+    o.coins.sort((a, b) => {
+      if (a < b) return 1
+      return -1
+    })
+  })
+
+  outputs.forEach(o => {
+    o.coins.sort((a, b) => {
+      if (a < b) return 1
+      return -1
+    })
+  })
+
   return {
     type: 'pay/MsgMultiSend',
     value: {

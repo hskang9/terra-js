@@ -5,7 +5,7 @@ import { StdTxValue, Signature } from './msgUtils'
 
 // Transactions often have amino decoded objects in them {type, value}.
 // We need to strip this clutter as we need to sign only the values.
-function prepareSignBytes(jsonTx: any): any {
+export function prepareSignBytes(jsonTx: any): any {
   if (Array.isArray(jsonTx)) {
     return jsonTx.map(prepareSignBytes)
   }
