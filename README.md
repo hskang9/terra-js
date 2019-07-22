@@ -43,3 +43,8 @@ console.log(accAddr, broadcastBody)
 * buildSend
 * buildMultiSend
 * buildSwap
+* buildDelegate,
+* buildRedelegate,
+* buildSetWithdrawAddress,
+* buildUndelegate,
+* buildWithdrawDelegatorReward,
