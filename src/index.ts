@@ -22,6 +22,11 @@ import {
   buildStdTx,
   buildMultiSend,
   buildSwap,
+  buildDelegate,
+  buildRedelegate,
+  buildSetWithdrawAddress,
+  buildUndelegate,
+  buildWithdrawDelegatorReward,
   generateVoteHash
 } from './utils/msgUtils'
 

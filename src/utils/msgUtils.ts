@@ -181,3 +181,101 @@ export function buildSwap(trader: string, offerCoin: Coin, askDenom: string): Ms
     }
   }
 }
+
+interface MsgSetWithdrawAddress {
+  type: string
+  value: {
+    delegator_address: string
+    withdraw_address: string
+  }
+}
+
+export function buildSetWithdrawAddress(delegatorAddress: string, withdrawAddress: string): MsgSetWithdrawAddress {
+  return {
+    type: 'distribution/MsgModifyWithdrawAddress',
+    value: {
+      delegator_address: delegatorAddress,
+      withdraw_address: withdrawAddress
+    }
+  }
+}
+
+interface MsgWithdrawDelegatorReward {
+  type: string
+  value: {
+    delegator_address: string
+    validator_address: string
+  }
+}
+
+export function buildWithdrawDelegatorReward(delegatorAddress: string, validatorAddress: string): MsgWithdrawDelegatorReward {
+  return {
+    type: 'distribution/MsgWithdrawDelegationReward',
+    value: {
+      delegator_address: delegatorAddress,
+      validator_address: validatorAddress
+    }
+  }
+}
+
+interface MsgDelegate {
+  type: string
+  value: {
+    delegator_address: string
+    validator_address: string
+    amount: Coin
+  }
+}
+
+export function buildDelegate(delegatorAddress: string, validatorAddress: string, amount: Coin): MsgDelegate {
+  return {
+    type: 'staking/MsgDelegate',
+    value: {
+      delegator_address: delegatorAddress,
+      validator_address: validatorAddress,
+      amount
+    }
+  }
+}
+
+interface MsgRedelegate {
+  type: string
+  value: {
+    delegator_address: string
+    validator_src_address: string
+    validator_dst_address: string
+    amount: Coin
+  }
+}
+
+export function buildRedelegate(delegatorAddress: string, validatorSrcAddress: string, validatorDstAddress: string, amount: Coin): MsgRedelegate {
+  return {
+    type: 'staking/MsgBeginRedelegate',
+    value: {
+      delegator_address: delegatorAddress,
+      validator_src_address: validatorSrcAddress,
+      validator_dst_address: validatorDstAddress,
+      amount
+    }
+  }
+}
+
+interface MsgUndelegate {
+  type: string
+  value: {
+    delegator_address: string
+    validator_address: string
+    amount: Coin
+  }
+}
+
+export function buildUndelegate(delegatorAddress: string, validatorAddress: string, amount: Coin): MsgUndelegate {
+  return {
+    type: 'staking/MsgUndelegate',
+    value: {
+      delegator_address: delegatorAddress,
+      validator_address: validatorAddress,
+      amount
+    }
+  }
+}
