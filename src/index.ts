@@ -4,6 +4,7 @@ import {
   convertValAddressToAccAddress,
   deriveKeypair,
   deriveMasterKey,
+  deriveMasterKeySync,
   generateMnemonic,
   getAccAddress,
   getValAddress
@@ -38,6 +39,7 @@ export {
   convertValAddressToAccAddress,
   deriveKeypair,
   deriveMasterKey,
+  deriveMasterKeySync,
   generateMnemonic,
   getAccAddress,
   getValAddress,
