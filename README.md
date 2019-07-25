@@ -1,10 +1,10 @@
 # Terra Javascript Library
 This project provides Javascript & Node.js SDK library for [Core](https://github.com/terra-project/core) of [Terra](https://terra.money).
 
-## Send 
+## Example
 ```
 const mnemonic = terra.generateMnemonic()
-const masterKey = await terra.deriveMasterKey(menemonic)
+const masterKey = terra.deriveMasterKeySync(mnemonic)
 const keypair = terra.deriveKeypair(masterKey)
 const accAddr = terra.getAccAddress(keypair.publicKey)
 
@@ -42,14 +42,14 @@ const txhash = terra.getTxHash(txbytes)
 console.log(accAddr, broadcastBody, txhash)
 ```
 
-## Building Msgs
+## Functions for building various messages
 * buildPricePrevote
 * buildPriceVote
 * buildSend
 * buildMultiSend
 * buildSwap
-* buildDelegate,
-* buildRedelegate,
-* buildSetWithdrawAddress,
-* buildUndelegate,
-* buildWithdrawDelegatorReward,
+* buildDelegate
+* buildRedelegate
+* buildSetWithdrawAddress
+* buildUndelegate
+* buildWithdrawDelegatorReward

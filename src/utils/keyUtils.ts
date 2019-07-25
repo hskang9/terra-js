@@ -8,14 +8,22 @@ import * as bech32 from 'bech32'
 
 import * as secp256k1 from 'secp256k1'
 
-const accPrefix = `terra`
-const valPrefix = `terravaloper`
+const accPrefix = 'terra'
+const valPrefix = 'terravaloper'
 
 export async function deriveMasterKey(mnemonic: string): Promise<bip32.BIP32Interface> {
   // throws if mnemonic is invalid
   bip39.validateMnemonic(mnemonic)
 
   const seed = await bip39.mnemonicToSeed(mnemonic)
+  return bip32.fromSeed(seed)
+}
+
+export function deriveMasterKeySync(mnemonic: string): bip32.BIP32Interface {
+  // throws if mnemonic is invalid
+  bip39.validateMnemonic(mnemonic)
+
+  const seed = bip39.mnemonicToSeedSync(mnemonic)
   return bip32.fromSeed(seed)
 }
 
@@ -29,8 +37,9 @@ export function deriveKeypair(masterKey: bip32.BIP32Interface, account: Number =
   const terraHD = masterKey.derivePath(hdPathLuna)
   
   const privateKey = terraHD.privateKey
+
   if (!privateKey) {
-    throw 'Failed to derive key pair'
+    throw new Error('Failed to derive key pair')
   }
   
   const publicKey = secp256k1.publicKeyCreate(privateKey, true)
@@ -43,9 +52,13 @@ export function deriveKeypair(masterKey: bip32.BIP32Interface, account: Number =
 
 // NOTE: this only works with a compressed public key (33 bytes)
 function getAddress(publicKey: Buffer): Buffer {
-  const message = HEX.parse(publicKey.toString(`hex`))
+  if (typeof publicKey !== 'object' || publicKey.constructor !== Buffer) {
+    throw TypeError('parameter must be Buffer that contains public key');
+  }
+
+  const message = HEX.parse(publicKey.toString('hex'))
   const hash = RIPEMD160(SHA256(message)).toString()
-  const address = Buffer.from(hash, `hex`)
+  const address = Buffer.from(hash, 'hex')
   return bech32.toWords(address)
 }
 
