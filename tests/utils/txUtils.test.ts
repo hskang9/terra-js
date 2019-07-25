@@ -1,5 +1,6 @@
 import * as terra from '../../src/index'
 import * as assert from 'chai'
+import { triggerAsyncId } from 'async_hooks';
 
 describe('tx', () => { 
   it('signature', async () => {
@@ -92,4 +93,38 @@ describe('tx', () => {
 
     assert.expect(a3Signature.signature).equal('04Edd3+oKM1lAcRzw5N7uYpjXFxgOEJ5aiEMR2FrNM8dE0sM07ECs/CRh0uJzL8o7VkyauGQLADfmd4yR6Ypcw==')
   })
+
+  it('txid', () => {
+    const stdTx = terra.buildStdTx(
+      [
+        terra.buildSend([{denom: 'uluna', amount: '1000000'}], 'terra1wg2mlrxdmnnkkykgqg4znky86nyrtc45q336yv', 'terra1v9ku44wycfnsucez6fp085f5fsksp47u9x8jr4')
+      ], {
+        gas: '68161',
+        amount: [{
+          denom: 'ukrw',
+          amount: '1022',
+        }]
+      }, '1234'
+    )
+
+    const signedTx = terra.createSignedTx(stdTx.value, {
+      signature: 'ujbd8O37T7WLj62FWQWuEX3hBPzw1vbUHlJLs+4K03chtF8+73VqUJQ4pmYKqvteF+buqdPxL8zYA1xLYEQcHA==',
+      pub_key: {
+        type: 'tendermint/PubKeySecp256k1',
+        value: 'A4p3L23DzwwM6JnbLyY1xdgAl5ewiYPBQU+cD7Jzqwu7',
+      }
+    })
+
+    stdTx.value = signedTx
+
+    const txbytes = terra.getAminoDecodecTxBytes(stdTx)
+    const txhash = terra.getTxHash(txbytes)
+  
+    assert.expect(txhash).equal('11ca5293c661ded18a6d899c84b8ee9846f11ca3d6202b245dffd1fbee1a5a55')
+  })
 })
+
+/*
+{"type":"auth/StdTx","value":{"msg":[{"type":"pay/MsgSend","value":{"from_address":"terra1wg2mlrxdmnnkkykgqg4znky86nyrtc45q336yv","to_address":"terra1v9ku44wycfnsucez6fp085f5fsksp47u9x8jr4","amount":[{"denom":"uluna","amount":"1000000"}]}}],"fee":{"amount":[{"denom":"ukrw","amount":"1022"}],"gas":"68161"},"signatures":[{"pub_key":{"type":"tendermint/PubKeySecp256k1","value":"A4p3L23DzwwM6JnbLyY1xdgAl5ewiYPBQU+cD7Jzqwu7"},"signature":"ujbd8O37T7WLj62FWQWuEX3hBPzw1vbUHlJLs+4K03chtF8+73VqUJQ4pmYKqvteF+buqdPxL8zYA1xLYEQcHA=="}],"memo":"1234"}}
+{"txbytes":"ce01f0625dee0a426f888e960a147215bf8ccddce76b12c8022a29d887d4c835e2b41214616dcad5c4c2670e6322d242f3d1344c2d00d7dc1a100a05756c756e6112073130303030303012120a0c0a04756b727712043130323210c194041a6a0a26eb5ae98721038a772f6dc3cf0c0ce899db2f2635c5d8009797b08983c1414f9c0fb273ab0bbb1240ba36ddf0edfb4fb58b8fad855905ae117de104fcf0d6f6d41e524bb3ee0ad37721b45f3eef756a509438a6660aaafb5e17e6eea9d3f12fccd8035c4b60441c1c220431323334","txid":""}11ca5293c661ded18a6d899c84b8ee9846f11ca3d6202b245dffd1fbee1a5a55
+*/

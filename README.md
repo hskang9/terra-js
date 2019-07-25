@@ -34,7 +34,12 @@ const txSignature = terra.sign(jsonTx, keypair, {
 const signedTx = terra.createSignedTx(stdTx.value, txSignature)
 const broadcastBody = terra.createBroadcastBody(signedTx, "block")
 
-console.log(accAddr, broadcastBody)
+// get txid
+stdTx.value = signedTx
+const txbytes = terra.getAminoDecodecTxBytes(stdTx)
+const txhash = terra.getTxHash(txbytes)
+
+console.log(accAddr, broadcastBody, txhash)
 ```
 
 ## Building Msgs

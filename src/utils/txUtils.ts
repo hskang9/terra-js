@@ -1,7 +1,18 @@
-import * as sha256 from 'crypto-js/sha256'
+import * as CryptoJS from 'crypto-js'
 import * as secp256k1 from 'secp256k1'
 import { KeyPair } from './keyUtils'
 import { StdTxValue, Signature } from './msgUtils'
+import { StdTx } from 'index';
+import * as Amino from '@terra-money/amino-js'
+
+function byteArrayToWordArray(ba: Uint8Array) {
+  const wa: number[] = []
+	for (let i = 0; i < ba.length; i+=1) {
+		wa[(i / 4) | 0] |= ba[i] << (24 - 8 * i);
+	}
+	return CryptoJS.lib.WordArray.create(wa, ba.length);
+}
+
 
 // Transactions often have amino decoded objects in them {type, value}.
 // We need to strip this clutter as we need to sign only the values.
@@ -65,16 +76,14 @@ function createSignMessage(tx: StdTxValue, { sequence, account_number, chain_id 
 
 // produces the signature for a message (returns Buffer)
 function signWithPrivateKey(signMessage, privateKey) {
-  const signHash = Buffer.from(sha256(signMessage).toString(), `hex`)
+  const signHash = Buffer.from(CryptoJS.SHA256(signMessage).toString(), `hex`)
   const { signature } = secp256k1.sign(signHash, Buffer.from(privateKey, `hex`))
   return signature
 }
 
-function createSignature(signature: Buffer, sequence: string, accountNumber: string, publicKey: Buffer): Signature {
+function createSignature(signature: Buffer, publicKey: Buffer): Signature {
   return {
     signature: signature.toString(`base64`),
-    account_number: accountNumber,
-    sequence,
     pub_key: {
       type: `tendermint/PubKeySecp256k1`, // TODO: allow other keytypes
       value: publicKey.toString(`base64`)
@@ -85,10 +94,9 @@ function createSignature(signature: Buffer, sequence: string, accountNumber: str
 // main function to sign a jsonTx using the local keystore wallet
 // returns the complete signature object to add to the tx
 export function sign(jsonTx: any, keyPair: KeyPair, requestMetaData: SignMetaData): Signature {
-  const { sequence, account_number } = requestMetaData
   const signMessage = createSignMessage(jsonTx, requestMetaData)
   const signatureBuffer = signWithPrivateKey(signMessage, keyPair.privateKey)
-  return createSignature(signatureBuffer, sequence, account_number, keyPair.publicKey)
+  return createSignature(signatureBuffer, keyPair.publicKey)
 }
 
 // adds the signature object to the tx
@@ -96,6 +104,15 @@ export function createSignedTx(tx: StdTxValue, signature: Signature): StdTxValue
   return Object.assign({}, tx, {
     signatures: [signature]
   })
+}
+
+export function getAminoDecodecTxBytes(tx: StdTx) {
+  return Amino.marshalTx(tx, true)
+}
+
+export function getTxHash(txbytes: Uint8Array) {
+  
+  return CryptoJS.SHA256(byteArrayToWordArray(txbytes)).toString()
 }
 
 // the broadcast body consists of the signed tx and a return type

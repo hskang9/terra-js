@@ -30,7 +30,14 @@ import {
   generateVoteHash
 } from './utils/msgUtils'
 
-import { SignMetaData, createBroadcastBody, createSignedTx, sign } from './utils/txUtils'
+import { 
+  SignMetaData, 
+  createBroadcastBody, 
+  createSignedTx, 
+  sign,
+  getAminoDecodecTxBytes,
+  getTxHash
+} from './utils/txUtils'
 
 export {
   KeyPair,
@@ -62,5 +69,7 @@ export {
   SignMetaData,
   createBroadcastBody,
   createSignedTx,
-  sign
+  sign,
+  getAminoDecodecTxBytes,
+  getTxHash
 }

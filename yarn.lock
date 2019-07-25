@@ -116,6 +116,11 @@
     reflect-metadata "^0.1.12"
     tslib "^1.8.1"
 
+"@terra-money/amino-js@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@terra-money/amino-js/-/amino-js-0.1.1.tgz#8a60939b3e98d4182c3e32f641daac57d5c04488"
+  integrity sha512-cTFnXve636hMkWwMYMfE8ZaELtoFbOcrDBU+kiIrZiC6a90Ln7h5iWjioUkpqrp9D8kBFiYEBvHASiU/vAgKWQ==
+
 "@terra-money/core@^1.0.7":
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/@terra-money/core/-/core-1.0.7.tgz#573bb8b2108a5b5611308b39200c799b3e863980"
@@ -1016,6 +1021,11 @@ istanbul-reports@^2.2.4:
   integrity sha512-SKi4rnMyLBKe0Jy2uUdx28h8oG7ph2PPuQPvIAh31d+Ci+lSiEu4C+h3oBPuJ9+mPKhOyW0M8gY4U5NM1WLeXA==
   dependencies:
     handlebars "^4.1.2"
+
+js-sha256@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/js-sha256/-/js-sha256-0.9.0.tgz#0b89ac166583e91ef9123644bd3c5334ce9d0966"
+  integrity sha512-sga3MHh9sgQN2+pJ9VYZ+1LPwXOxuBJBA5nrR5/ofPfuiJBE2hnjsaN8se8JznOmGLN2p49Pe5U/ttafcs/apA==
 
 js-tokens@^4.0.0:
   version "4.0.0"
