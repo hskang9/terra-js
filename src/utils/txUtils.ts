@@ -106,7 +106,7 @@ export function createSignedTx(tx: StdTxValue, signature: Signature): StdTxValue
   })
 }
 
-export function getAminoDecodecTxBytes(tx: StdTx) {
+export function getAminoDecodedTxBytes(tx: StdTx) {
   return Amino.marshalTx(tx, true)
 }
 

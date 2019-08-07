@@ -117,7 +117,7 @@ describe('tx', () => {
 
     stdTx.value = signedTx
 
-    const txbytes = terra.getAminoDecodecTxBytes(stdTx)
+    const txbytes = terra.getAminoDecodedTxBytes(stdTx)
     const txhash = terra.getTxHash(txbytes)
   
     assert.expect(txhash).equal('11ca5293c661ded18a6d899c84b8ee9846f11ca3d6202b245dffd1fbee1a5a55')

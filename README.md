@@ -36,7 +36,7 @@ const broadcastBody = terra.createBroadcastBody(signedTx, "block")
 
 // get txid
 stdTx.value = signedTx
-const txbytes = terra.getAminoDecodecTxBytes(stdTx)
+const txbytes = terra.getAminoDecodedTxBytes(stdTx)
 const txhash = terra.getTxHash(txbytes)
 
 console.log(accAddr, broadcastBody, txhash)

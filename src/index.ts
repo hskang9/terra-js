@@ -36,7 +36,7 @@ import {
   createBroadcastBody, 
   createSignedTx, 
   sign,
-  getAminoDecodecTxBytes,
+  getAminoDecodedTxBytes,
   getTxHash
 } from './utils/txUtils'
 
@@ -72,6 +72,6 @@ export {
   createBroadcastBody,
   createSignedTx,
   sign,
-  getAminoDecodecTxBytes,
+  getAminoDecodedTxBytes,
   getTxHash
 }
