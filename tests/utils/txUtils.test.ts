@@ -1,6 +1,5 @@
-import * as terra from '../../src/index'
+import * as terra from '../../src'
 import * as assert from 'chai'
-import { triggerAsyncId } from 'async_hooks'
 
 describe('tx', () => {
   it('signature', async () => {

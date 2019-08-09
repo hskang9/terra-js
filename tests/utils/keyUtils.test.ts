@@ -1,4 +1,4 @@
-import * as terra from '../../src/index'
+import * as terra from '../../src'
 import * as assert from 'chai'
 
 describe('key', () => {
