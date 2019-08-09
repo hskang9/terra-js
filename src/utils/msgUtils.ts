@@ -227,7 +227,10 @@ interface MsgWithdrawDelegatorReward {
   }
 }
 
-export function buildWithdrawDelegatorReward(delegatorAddress: string, validatorAddress: string): MsgWithdrawDelegatorReward {
+export function buildWithdrawDelegatorReward(
+  delegatorAddress: string,
+  validatorAddress: string
+): MsgWithdrawDelegatorReward {
   return {
     type: 'distribution/MsgWithdrawDelegationReward',
     value: {
@@ -267,7 +270,12 @@ interface MsgRedelegate {
   }
 }
 
-export function buildRedelegate(delegatorAddress: string, validatorSrcAddress: string, validatorDstAddress: string, amount: Coin): MsgRedelegate {
+export function buildRedelegate(
+  delegatorAddress: string,
+  validatorSrcAddress: string,
+  validatorDstAddress: string,
+  amount: Coin
+): MsgRedelegate {
   return {
     type: 'staking/MsgBeginRedelegate',
     value: {

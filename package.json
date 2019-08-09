@@ -7,7 +7,9 @@
   "scripts": {
     "build": "tsc --declaration",
     "test": "mocha -r ts-node/register tests/**/*.test.ts",
-    "testWithCoverage": "nyc -r lcov -e .ts -x \"*.test.ts\" mocha -r ts-node/register tests/**/*.test.ts && nyc report"
+    "testWithCoverage": "nyc -r lcov -e .ts -x \"*.test.ts\" mocha -r ts-node/register tests/**/*.test.ts && nyc report",
+    "prettier": "prettier --write './{src,tests}/**/*.ts'",
+    "lint": "tslint -p ."
   },
   "repository": {
     "type": "git",
@@ -33,6 +35,8 @@
     "@types/node": "^12.0.8",
     "@types/secp256k1": "^3.5.0",
     "chai": "^4.2.0",
+    "husky": "^3.0.3",
+    "lint-staged": "^9.2.1",
     "mocha": "^6.2.0",
     "nyc": "^14.1.1",
     "prettier": "^1.18.2",
@@ -44,7 +48,6 @@
   },
   "dependencies": {
     "@terra-money/amino-js": "^0.1.1",
-    "@terra-money/core": "^1.0.7",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.7",
     "@types/secp256k1": "^3.5.0",
@@ -54,5 +57,18 @@
     "crypto-js": "^3.1.9-1",
     "secp256k1": "^3.7.1",
     "ts-node": "^8.3.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "post-checkout": "yarn"
+    }
+  },
+  "lint-staged": {
+    "./src/**/*.ts": [
+      "prettier --write",
+      "tslint -p .",
+      "git add"
+    ]
   }
 }

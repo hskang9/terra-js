@@ -35,13 +35,13 @@ export interface KeyPair {
 export function deriveKeypair(masterKey: bip32.BIP32Interface, account: Number = 0, index: Number = 0): KeyPair {
   const hdPathLuna = `m/44'/330'/${account}'/0/${index}`
   const terraHD = masterKey.derivePath(hdPathLuna)
-  
+
   const privateKey = terraHD.privateKey
 
   if (!privateKey) {
     throw new Error('Failed to derive key pair')
   }
-  
+
   const publicKey = secp256k1.publicKeyCreate(privateKey, true)
 
   return {
@@ -53,7 +53,7 @@ export function deriveKeypair(masterKey: bip32.BIP32Interface, account: Number =
 // NOTE: this only works with a compressed public key (33 bytes)
 function getAddress(publicKey: Buffer): Buffer {
   if (typeof publicKey !== 'object' || publicKey.constructor !== Buffer) {
-    throw TypeError('parameter must be Buffer that contains public key');
+    throw TypeError('parameter must be Buffer that contains public key')
   }
 
   const message = HEX.parse(publicKey.toString('hex'))
