@@ -1,29 +1,38 @@
-import * as terra from '../../src/index'
+import * as terra from '../../src'
 import * as assert from 'chai'
-import { triggerAsyncId } from 'async_hooks';
 
-describe('tx', () => { 
+describe('tx', () => {
   it('signature', async () => {
-    const masterKey = await terra.deriveMasterKey('spatial fantasy weekend romance entire million celery final moon solid route theory way hockey north trigger advice balcony melody fabric alter bullet twice push')
+    const masterKey = await terra.deriveMasterKey(
+      'spatial fantasy weekend romance entire million celery final moon solid route theory way hockey north trigger advice balcony melody fabric alter bullet twice push'
+    )
     const keypair = terra.deriveKeypair(masterKey, 0, 0)
     const accAddr = terra.getAccAddress(keypair.publicKey)
 
-    const msgSend = terra.buildSend([
-      {
-        amount: '1000000',
-        denom: 'uluna'
-      }
-    ], accAddr, 'terra1ptdx6akgk7wwemlk5j73artt5t6j8am08ql3qv')
-
-    const stdTx = terra.buildStdTx([msgSend], {
-      'gas': '200000',
-      'amount': [
+    const msgSend = terra.buildSend(
+      [
         {
-          'amount': '1000',
-          'denom': 'uluna'
+          amount: '1000000',
+          denom: 'uluna'
         }
-      ]
-    }, 'library test')
+      ],
+      accAddr,
+      'terra1ptdx6akgk7wwemlk5j73artt5t6j8am08ql3qv'
+    )
+
+    const stdTx = terra.buildStdTx(
+      [msgSend],
+      {
+        gas: '200000',
+        amount: [
+          {
+            amount: '1000',
+            denom: 'uluna'
+          }
+        ]
+      },
+      'library test'
+    )
 
     const jsonTx = stdTx.value
     const txSignature = terra.sign(jsonTx, keypair, {
@@ -32,86 +41,118 @@ describe('tx', () => {
       chain_id: 'soju-0009'
     })
 
-    assert.expect(txSignature.signature).equal('Jxa82cR2/LBSRqHulnwsOhEE5EyMH16/X/y66PlJBK0Kq4RUHqsCvj9g6qg/wwcu7p+pF6yJ3pdmSc+A3x0zCg==')
+    assert
+      .expect(txSignature.signature)
+      .equal('Jxa82cR2/LBSRqHulnwsOhEE5EyMH16/X/y66PlJBK0Kq4RUHqsCvj9g6qg/wwcu7p+pF6yJ3pdmSc+A3x0zCg==')
   })
 
   it('multisig', async () => {
     const receiverAddr = 'terra1ptdx6akgk7wwemlk5j73artt5t6j8am08ql3qv'
-    
+
     const multisigAddr = 'terra16ddrexknvk2e443jsnle4n6s2ewjc6z3mjcu6d'
     const multisigAccountNumber = '197'
     const multisigSequenceNumber = '0'
 
-    const a1Key = await terra.deriveMasterKey('swamp increase solar renew twelve easily possible pig ostrich harvest more indicate lion denial kind target small dumb mercy under proud arrive gentle field')
+    const a1Key = await terra.deriveMasterKey(
+      'swamp increase solar renew twelve easily possible pig ostrich harvest more indicate lion denial kind target small dumb mercy under proud arrive gentle field'
+    )
     const a1Keypair = terra.deriveKeypair(a1Key, 0, 0)
     const a1AccAddress = terra.getAccAddress(a1Keypair.publicKey)
 
     assert.expect(a1AccAddress).equal('terra12dazwl3yq6nwrce052ah3fudkarglsgvacyvl9')
 
-    const a2Key = await terra.deriveMasterKey('service frozen keen unveil luggage initial surge name conduct mesh soup escape weather gas clown brand holiday result protect chat plug false pitch little')
+    const a2Key = await terra.deriveMasterKey(
+      'service frozen keen unveil luggage initial surge name conduct mesh soup escape weather gas clown brand holiday result protect chat plug false pitch little'
+    )
     const a2Keypair = terra.deriveKeypair(a2Key, 0, 0)
     const a2AccAddress = terra.getAccAddress(a2Keypair.publicKey)
 
     assert.expect(a2AccAddress).equal('terra1jqw25580qljucyy2xkpp7j02kd4mwx69wvfgf9')
 
-    const a3Key = await terra.deriveMasterKey('corn peasant blue sight spy three stove confirm night brother vote dish reduce sick observe outside vacant arena laugh devote exotic wasp supply rally')
+    const a3Key = await terra.deriveMasterKey(
+      'corn peasant blue sight spy three stove confirm night brother vote dish reduce sick observe outside vacant arena laugh devote exotic wasp supply rally'
+    )
     const a3Keypair = terra.deriveKeypair(a3Key, 0, 0)
     const a3AccAddress = terra.getAccAddress(a3Keypair.publicKey)
 
     assert.expect(a3AccAddress).equal('terra13hrg8ul0p7sh85jwalh3leysdrw9swh44dql2h')
 
-    const msgSend = terra.buildSend([{
-      amount: '1000000',
-      denom: 'uluna'
-    }], multisigAddr, receiverAddr)
-
-    const stdTx = terra.buildStdTx([msgSend], {
-      gas: '50000',
-      amount: [
+    const msgSend = terra.buildSend(
+      [
         {
-          amount: '750',
+          amount: '1000000',
           denom: 'uluna'
         }
-      ]
-    }, 'memo')
+      ],
+      multisigAddr,
+      receiverAddr
+    )
+
+    const stdTx = terra.buildStdTx(
+      [msgSend],
+      {
+        gas: '50000',
+        amount: [
+          {
+            amount: '750',
+            denom: 'uluna'
+          }
+        ]
+      },
+      'memo'
+    )
 
     const jsonTx = stdTx.value
-    const signMeta:terra.SignMetaData = {
+    const signMeta: terra.SignMetaData = {
       sequence: multisigSequenceNumber,
       account_number: multisigAccountNumber,
       chain_id: 'soju-0009'
     }
     const a1Signature = terra.sign(jsonTx, a1Keypair, signMeta)
 
-    assert.expect(a1Signature.signature).equal('89zFkGLoBpqiTOicd5QaU7Ulch5TMjsZhdubgZyetttXN9LCqyrPobw4aeROt5fXWZv58LwVR+dC5fVEPLNu3Q==')
+    assert
+      .expect(a1Signature.signature)
+      .equal('89zFkGLoBpqiTOicd5QaU7Ulch5TMjsZhdubgZyetttXN9LCqyrPobw4aeROt5fXWZv58LwVR+dC5fVEPLNu3Q==')
 
     const a2Signature = terra.sign(jsonTx, a2Keypair, signMeta)
 
-    assert.expect(a2Signature.signature).equal('T3IMCxFt8+bYiRLnK40qdIXarSHvTqMujGDqRpeaEkMR21YMkd2us5Ml9wYR9pTiknF+6s1HBT6JD7wFSwEciw==')
+    assert
+      .expect(a2Signature.signature)
+      .equal('T3IMCxFt8+bYiRLnK40qdIXarSHvTqMujGDqRpeaEkMR21YMkd2us5Ml9wYR9pTiknF+6s1HBT6JD7wFSwEciw==')
 
     const a3Signature = terra.sign(jsonTx, a3Keypair, signMeta)
 
-    assert.expect(a3Signature.signature).equal('04Edd3+oKM1lAcRzw5N7uYpjXFxgOEJ5aiEMR2FrNM8dE0sM07ECs/CRh0uJzL8o7VkyauGQLADfmd4yR6Ypcw==')
+    assert
+      .expect(a3Signature.signature)
+      .equal('04Edd3+oKM1lAcRzw5N7uYpjXFxgOEJ5aiEMR2FrNM8dE0sM07ECs/CRh0uJzL8o7VkyauGQLADfmd4yR6Ypcw==')
   })
 
   it('txid', () => {
     const stdTx = terra.buildStdTx(
       [
-        terra.buildSend([{denom: 'uluna', amount: '1000000'}], 'terra1wg2mlrxdmnnkkykgqg4znky86nyrtc45q336yv', 'terra1v9ku44wycfnsucez6fp085f5fsksp47u9x8jr4')
-      ], {
+        terra.buildSend(
+          [{ denom: 'uluna', amount: '1000000' }],
+          'terra1wg2mlrxdmnnkkykgqg4znky86nyrtc45q336yv',
+          'terra1v9ku44wycfnsucez6fp085f5fsksp47u9x8jr4'
+        )
+      ],
+      {
         gas: '68161',
-        amount: [{
-          denom: 'ukrw',
-          amount: '1022',
-        }]
-      }, '1234'
+        amount: [
+          {
+            denom: 'ukrw',
+            amount: '1022'
+          }
+        ]
+      },
+      '1234'
     )
 
     const signedTx = terra.createSignedTx(stdTx.value, {
       signature: 'ujbd8O37T7WLj62FWQWuEX3hBPzw1vbUHlJLs+4K03chtF8+73VqUJQ4pmYKqvteF+buqdPxL8zYA1xLYEQcHA==',
       pub_key: {
         type: 'tendermint/PubKeySecp256k1',
-        value: 'A4p3L23DzwwM6JnbLyY1xdgAl5ewiYPBQU+cD7Jzqwu7',
+        value: 'A4p3L23DzwwM6JnbLyY1xdgAl5ewiYPBQU+cD7Jzqwu7'
       }
     })
 
@@ -119,7 +160,7 @@ describe('tx', () => {
 
     const txbytes = terra.getAminoDecodedTxBytes(stdTx)
     const txhash = terra.getTxHash(txbytes)
-  
+
     assert.expect(txhash).equal('11ca5293c661ded18a6d899c84b8ee9846f11ca3d6202b245dffd1fbee1a5a55')
   })
 })

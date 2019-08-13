@@ -2,17 +2,16 @@ import * as CryptoJS from 'crypto-js'
 import * as secp256k1 from 'secp256k1'
 import { KeyPair } from './keyUtils'
 import { StdTxValue, Signature } from './msgUtils'
-import { StdTx } from 'index';
+import { StdTx } from 'index'
 import * as Amino from '@terra-money/amino-js'
 
 function byteArrayToWordArray(ba: Uint8Array) {
   const wa: number[] = []
-	for (let i = 0; i < ba.length; i+=1) {
-		wa[(i / 4) | 0] |= ba[i] << (24 - 8 * i);
-	}
-	return CryptoJS.lib.WordArray.create(wa, ba.length);
+  for (let i = 0; i < ba.length; i += 1) {
+    wa[(i / 4) | 0] |= ba[i] << (24 - 8 * i)
+  }
+  return CryptoJS.lib.WordArray.create(wa, ba.length)
 }
-
 
 // Transactions often have amino decoded objects in them {type, value}.
 // We need to strip this clutter as we need to sign only the values.
@@ -111,7 +110,6 @@ export function getAminoDecodedTxBytes(tx: StdTx) {
 }
 
 export function getTxHash(txbytes: Uint8Array) {
-  
   return CryptoJS.SHA256(byteArrayToWordArray(txbytes)).toString()
 }
 
