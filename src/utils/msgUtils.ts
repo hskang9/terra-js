@@ -59,7 +59,7 @@ export interface StdTx {
   value: StdTxValue
 }
 
-export function buildStdTx(msg: object[], fee: Fee, memo: string): StdTx {
+export function buildStdTx(msg: object[], fee: Fee, memo: string = ''): StdTx {
   return {
     type: 'auth/StdTx',
     value: {
