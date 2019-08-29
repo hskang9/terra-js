@@ -1,11 +1,11 @@
 {
   "name": "@terra-money/core",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "This package provides Terra Blockchain client side APIs to support building transaction, singing, or querying chain data.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc --declaration",
+    "build": "rimraf dist && tsc --declaration",
     "test": "mocha -r ts-node/register tests/**/*.test.ts",
     "testWithCoverage": "nyc -r lcov -e .ts -x \"*.test.ts\" mocha -r ts-node/register tests/**/*.test.ts && nyc report",
     "prettier": "prettier --write './{src,tests}/**/*.ts'",
@@ -40,6 +40,7 @@
     "mocha": "^6.2.0",
     "nyc": "^14.1.1",
     "prettier": "^1.18.2",
+    "rimraf": "^3.0.0",
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
     "tslint-config-airbnb": "^5.11.1",

@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
-    "strict": false,
     "allowJs": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -15,13 +14,11 @@
     "sourceRoot": "src",
     "outDir": "dist",
     "typeRoots": [
-      "./src/typings",
       "./node_modules/@types"
     ]
   },
   "include": [
-    "src/**/*.ts",
-    "tests/**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
