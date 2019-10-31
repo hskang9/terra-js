@@ -1,9 +1,11 @@
-import * as terra from '../../src/index'
+import * as terra from '../../src'
 import * as assert from 'chai'
 
-describe('key', () => { 
+describe('key', () => {
   it('address', async () => {
-    const masterKey = await terra.deriveMasterKey('spatial fantasy weekend romance entire million celery final moon solid route theory way hockey north trigger advice balcony melody fabric alter bullet twice push')
+    const masterKey = await terra.deriveMasterKey(
+      'spatial fantasy weekend romance entire million celery final moon solid route theory way hockey north trigger advice balcony melody fabric alter bullet twice push'
+    )
     const keyPair = terra.deriveKeypair(masterKey, 0, 0)
     const address = terra.getAccAddress(keyPair.publicKey)
 

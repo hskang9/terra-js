@@ -34,10 +34,10 @@ import {
   VoteOption
 } from './utils/msgUtils'
 
-import { 
-  SignMetaData, 
-  createBroadcastBody, 
-  createSignedTx, 
+import {
+  SignMetaData,
+  createBroadcastBody,
+  createSignedTx,
   sign,
   getAminoDecodedTxBytes,
   getTxHash
