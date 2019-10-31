@@ -28,7 +28,10 @@ import {
   buildSetWithdrawAddress,
   buildUndelegate,
   buildWithdrawDelegatorReward,
-  generateVoteHash
+  buildDeposit,
+  buildVote,
+  generateVoteHash,
+  VoteOption
 } from './utils/msgUtils'
 
 import { 
@@ -67,11 +70,14 @@ export {
   buildSetWithdrawAddress,
   buildUndelegate,
   buildWithdrawDelegatorReward,
+  buildDeposit,
+  buildVote,
   generateVoteHash,
   SignMetaData,
   createBroadcastBody,
   createSignedTx,
   sign,
   getAminoDecodedTxBytes,
-  getTxHash
+  getTxHash,
+  VoteOption
 }

@@ -60,8 +60,13 @@ export interface StdTx {
 }
 
 export function buildStdTx(msg: object[], fee: Fee, memo: string): StdTx {
+  fee.amount.sort((a, b) => {
+    if (a.denom < b.denom) return -1
+    return 1
+  })
+
   return {
-    type: 'auth/StdTx',
+    type: 'core/StdTx',
     value: {
       fee,
       memo,
@@ -139,7 +144,7 @@ export function buildSend(amount: Coin[], fromAddress: string, toAddress: string
   })
 
   return {
-    type: 'pay/MsgSend',
+    type: 'bank/MsgSend',
     value: {
       amount,
       from_address: fromAddress,
@@ -160,20 +165,20 @@ export function buildMultiSend(inputs: InOut[], outputs: InOut[]): MsgMultiSend 
   // Sort coins before building msg
   inputs.forEach(o => {
     o.coins.sort((a, b) => {
-      if (a < b) return 1
-      return -1
+      if (a < b) return -1
+      return 1
     })
   })
 
   outputs.forEach(o => {
     o.coins.sort((a, b) => {
-      if (a < b) return 1
-      return -1
+      if (a < b) return -1
+      return 1
     })
   })
 
   return {
-    type: 'pay/MsgMultiSend',
+    type: 'bank/MsgMultiSend',
     value: {
       inputs,
       outputs
@@ -295,6 +300,54 @@ export function buildUndelegate(delegatorAddress: string, validatorAddress: stri
       delegator_address: delegatorAddress,
       validator_address: validatorAddress,
       amount
+    }
+  }
+}
+
+interface MsgDeposit {
+  type: string
+  value: {
+    proposal_id: string
+    depositor: string
+    amount: Coin[]
+  }
+}
+
+export function buildDeposit(proposalID: string, depositor: string, amount: Coin[]): MsgDeposit {
+  return {
+    type: 'gov/MsgDeposit',
+    value: {
+      proposal_id: proposalID,
+      depositor,
+      amount
+    }
+  }
+}
+
+export enum VoteOption {
+  OptionEmpty = 0x00,
+  OptionYes = 0x01,
+  OptionAbstain = 0x02,
+  OptionNo = 0x03,
+  OptionNoWithVeto = 0x04
+}
+
+interface MsgVote {
+  type: string
+  value: {
+    proposal_id: string
+    voter: string
+    option: VoteOption
+  }
+}
+
+export function buildVote(proposalID: string, voter: string, option: VoteOption): MsgVote {
+  return {
+    type: 'gov/MsgVote',
+    value: {
+      proposal_id: proposalID,
+      voter,
+      option
     }
   }
 }

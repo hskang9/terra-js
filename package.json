@@ -43,7 +43,7 @@
     "typescript": "^3.5.1"
   },
   "dependencies": {
-    "@terra-money/amino-js": "^0.1.1",
+    "@terra-money/amino-js": "^0.2.0-alpha.1",
     "@terra-money/core": "^1.0.7",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.7",
