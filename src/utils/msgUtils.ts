@@ -40,8 +40,8 @@ function normalizeDecimal(decimalNumber: string): string {
   return result
 }
 
-export function generateVoteHash(salt: string, price: string, denom: string, voter: string): string {
-  const proof = `${salt}:${normalizeDecimal(price)}:${denom}:${voter}`
+export function generateVoteHash(salt: string, exchangeRate: string, denom: string, voter: string): string {
+  const proof = `${salt}:${normalizeDecimal(exchangeRate)}:${denom}:${voter}`
   const hash = SHA256(proof).toString() // hex string
 
   return hash.slice(0, 40) // 20 prefix bytes
@@ -76,7 +76,7 @@ export function buildStdTx(msg: object[], fee: Fee, memo: string): StdTx {
   }
 }
 
-interface MsgPricePrevote {
+interface MsgExchangeRatePrevote {
   type: string
   value: {
     hash: string
@@ -86,9 +86,9 @@ interface MsgPricePrevote {
   }
 }
 
-export function buildPricePrevote(hash: string, denom: string, feeder: string, validator: string): MsgPricePrevote {
+export function buildExchangeRatePrevote(hash: string, denom: string, feeder: string, validator: string): MsgExchangeRatePrevote {
   return {
-    type: 'oracle/MsgPricePrevote',
+    type: 'oracle/MsgExchangeRatePrevote',
     value: {
       hash,
       denom,
@@ -98,10 +98,10 @@ export function buildPricePrevote(hash: string, denom: string, feeder: string, v
   }
 }
 
-interface MsgPriceVote {
+interface MsgExchangeRateVote {
   type: string
   value: {
-    price: string
+    exchange_rate: string
     salt: string
     denom: string
     feeder: string
@@ -109,17 +109,17 @@ interface MsgPriceVote {
   }
 }
 
-export function buildPriceVote(
-  price: string,
+export function buildExchangeRateVote(
+  exchangeRate: string,
   salt: string,
   denom: string,
   feeder: string,
   validator: string
-): MsgPriceVote {
+): MsgExchangeRateVote {
   return {
-    type: 'oracle/MsgPriceVote',
+    type: 'oracle/MsgExchangeRateVote',
     value: {
-      price,
+      exchange_rate: exchangeRate,
       salt,
       denom,
       feeder,

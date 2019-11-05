@@ -43,8 +43,8 @@ console.log(accAddr, broadcastBody, txhash)
 ```
 
 ## Functions for building various messages
-* buildPricePrevote
-* buildPriceVote
+* buildExchangeRatePrevote
+* buildExchangeRateVote
 * buildSend
 * buildMultiSend
 * buildSwap
