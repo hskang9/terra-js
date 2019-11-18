@@ -53,3 +53,5 @@ console.log(accAddr, broadcastBody, txhash)
 * buildSetWithdrawAddress
 * buildUndelegate
 * buildWithdrawDelegatorReward
+* buildDeposit
+* buildVote
