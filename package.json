@@ -48,7 +48,7 @@
     "typescript": "^3.5.1"
   },
   "dependencies": {
-    "@terra-money/amino-js": "^0.2.0-alpha.1",
+    "@terra-money/amino-js": "^0.2.0",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.7",
     "@types/secp256k1": "^3.5.0",

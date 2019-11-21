@@ -137,10 +137,10 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@terra-money/amino-js@^0.1.1":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@terra-money/amino-js/-/amino-js-0.1.2.tgz#3dc32cc8b42c959c20b36e3aa7f495455f1e5537"
-  integrity sha512-sXU3pxbJJBCqkHTAPynRWCZ6LP3UNku3xVbd15g+JjA+ocp5ALX4jjNQPwG30kgH0msTIc41iraUe6Tk/vnbVQ==
+"@terra-money/amino-js@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@terra-money/amino-js/-/amino-js-0.2.0.tgz#94f4f6aff5249f68cb713fc345966d5cfcac3c3c"
+  integrity sha512-Oj4e2S/1RvVLEjfqvLT3zDwWSFRRNPF6OovngJAtOeigQ8Vgea/eloMxVR4WNTesk1Z1QsovYTBGRqxV9bkgGA==
 
 "@types/bech32@^1.1.1":
   version "1.1.1"
