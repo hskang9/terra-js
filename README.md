@@ -2,7 +2,7 @@
 This project provides Javascript & Node.js SDK library for [Core](https://github.com/terra-project/core) of [Terra](https://terra.money).
 
 ## Example
-```
+```node
 const mnemonic = terra.generateMnemonic()
 const masterKey = terra.deriveMasterKeySync(mnemonic)
 const keypair = terra.deriveKeypair(masterKey)
