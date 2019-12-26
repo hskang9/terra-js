@@ -1,8 +1,7 @@
 import * as CryptoJS from 'crypto-js'
 import * as secp256k1 from 'secp256k1'
 import { KeyPair } from './keyUtils'
-import { StdTxValue, Signature } from './msgUtils'
-import { StdTx } from 'index'
+import { StdTx, StdTxValue, Signature } from './msgUtils'
 import * as Amino from '@terra-money/amino-js'
 
 function byteArrayToWordArray(ba: Uint8Array) {
