@@ -13,7 +13,9 @@ const valPrefix = 'terravaloper'
 
 export async function deriveMasterKey(mnemonic: string): Promise<bip32.BIP32Interface> {
   // throws if mnemonic is invalid
-  bip39.validateMnemonic(mnemonic)
+  if (!bip39.validateMnemonic(mnemonic)) {
+    throw new Error('invalid mnemonic')
+  }
 
   const seed = await bip39.mnemonicToSeed(mnemonic)
   return bip32.fromSeed(seed)
