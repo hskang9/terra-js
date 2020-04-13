@@ -46,7 +46,7 @@ export function deriveKeypair(masterKey: bip32.BIP32Interface, account: Number =
     throw new Error('Failed to derive key pair')
   }
 
-  const publicKey = secp256k1.publicKeyCreate(privateKey, true)
+  const publicKey = Buffer.from(secp256k1.publicKeyCreate(privateKey, true))
 
   return {
     privateKey,
@@ -63,7 +63,7 @@ function getAddress(publicKey: Buffer): Buffer {
   const message = HEX.parse(publicKey.toString('hex'))
   const hash = RIPEMD160(SHA256(message)).toString()
   const address = Buffer.from(hash, 'hex')
-  return bech32.toWords(address)
+  return Buffer.from(bech32.toWords(address))
 }
 
 // NOTE: this only works with a compressed public key (33 bytes)

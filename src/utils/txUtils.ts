@@ -75,7 +75,7 @@ function createSignMessage(tx: StdTxValue, { sequence, account_number, chain_id 
 // produces the signature for a message (returns Buffer)
 function signWithPrivateKey(signMessage, privateKey) {
   const signHash = Buffer.from(CryptoJS.SHA256(signMessage).toString(), `hex`)
-  const { signature } = secp256k1.sign(signHash, Buffer.from(privateKey, `hex`))
+  const { signature } = secp256k1.ecdsaSign(signHash, Buffer.from(privateKey, `hex`))
   return signature
 }
 
@@ -93,7 +93,7 @@ function createSignature(signature: Buffer, publicKey: Buffer): Signature {
 // returns the complete signature object to add to the tx
 export function sign(jsonTx: any, keyPair: KeyPair, requestMetaData: SignMetaData): Signature {
   const signMessage = createSignMessage(jsonTx, requestMetaData)
-  const signatureBuffer = signWithPrivateKey(signMessage, keyPair.privateKey)
+  const signatureBuffer = Buffer.from(signWithPrivateKey(signMessage, keyPair.privateKey))
   return createSignature(signatureBuffer, keyPair.publicKey)
 }
 
