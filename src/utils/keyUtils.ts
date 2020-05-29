@@ -69,23 +69,23 @@ function getAddress(publicKey: Buffer): Buffer {
 // NOTE: this only works with a compressed public key (33 bytes)
 export function getAccAddress(publicKey: Buffer): string {
   const words = getAddress(publicKey)
-  return bech32.encode(accPrefix, words)
+  return bech32.encode(accPrefix, (words as unknown) as number[])
 }
 
 // NOTE: this only works with a compressed public key (33 bytes)
 export function getValAddress(publicKey: Buffer): string {
   const words = getAddress(publicKey)
-  return bech32.encode(valPrefix, words)
+  return bech32.encode(valPrefix, (words as unknown) as number[])
 }
 
 export function convertValAddressToAccAddress(address: string): string {
   const { words } = bech32.decode(address)
-  return bech32.encode(accPrefix, words)
+  return bech32.encode(accPrefix, (words as unknown) as number[])
 }
 
 export function convertAccAddressToValAddress(address: string): string {
   const { words } = bech32.decode(address)
-  return bech32.encode(valPrefix, words)
+  return bech32.encode(valPrefix, (words as unknown) as number[])
 }
 
 export function generateMnemonic(): string {
